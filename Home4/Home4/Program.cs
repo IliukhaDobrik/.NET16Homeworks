@@ -11,7 +11,15 @@ if (int.TryParse(Console.ReadLine(), out int size))
     }
 
     //Amount
-    //int amount = ints.Sum(x => x % 2 != 0);
+    //int amount = ints.Sum<int>(x =>
+    //{
+    //    if(x%2==0)
+    //    {
+    //        return 0;
+    //    }
+
+    //    return x;
+    //});
     int amount = 0;
     for (int i = 1; i < ints.Length; i = i + 2)
     {
