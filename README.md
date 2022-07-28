@@ -6,3 +6,4 @@ ADDED example from third homework(Home3.1);
 ADDED fourth homework(Home4);
 FIXED Home4;
 ADDED Home5;
+ADDED Home6;
