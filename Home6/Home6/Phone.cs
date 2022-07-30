@@ -75,10 +75,10 @@
         {
             Console.WriteLine("Wait, it's charging");
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
-                Console.Write(". ");
                 Thread.Sleep(500);
+                Console.Write(". ");
             }
             Console.WriteLine();
 
