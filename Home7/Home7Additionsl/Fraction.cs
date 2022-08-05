@@ -33,7 +33,7 @@
             return $"{Numerator}/{Denominator}";
         }
 
-        public static Fraction ReduceFraction(Fraction otherFraction)
+        public static Fraction ReduceFraction(in Fraction otherFraction)
         {
             if (otherFraction == null)
             {
@@ -55,7 +55,7 @@
             }
         }
 
-        public static bool TryReduceFraction(Fraction otherFraction, out Fraction resultFraction)
+        public static bool TryReduceFraction(in Fraction otherFraction, out Fraction resultFraction)
         {
             if (otherFraction == null)
             {
@@ -80,7 +80,7 @@
             }
         }
 
-        public static double Parse(Fraction otherFraction)
+        public static double Parse(in Fraction otherFraction)
         {
             if (otherFraction == null)
             {
@@ -90,7 +90,7 @@
             return (double)otherFraction.Numerator/otherFraction.Denominator;
         }
 
-        public static bool TryParse(Fraction otherFraction, out double result)
+        public static bool TryParse(in Fraction otherFraction, out double result)
         {
             if (otherFraction == null)
             {
@@ -104,7 +104,7 @@
             return true;
         }
 
-        public static Fraction operator +(Fraction fraction1, Fraction fraction2)
+        public static Fraction operator +(in Fraction fraction1, in Fraction fraction2)
         {
             if (fraction1 == null || fraction2 == null)
             {
@@ -134,7 +134,7 @@
             return result;
         }
 
-        public static Fraction operator -(Fraction fraction1, Fraction fraction2)
+        public static Fraction operator -(in Fraction fraction1, in Fraction fraction2)
         {
             if (fraction1 == null || fraction2 == null)
             {
@@ -164,7 +164,7 @@
             return result;
         }
 
-        public static Fraction operator /(Fraction fraction1, Fraction fraction2)
+        public static Fraction operator /(in Fraction fraction1, in Fraction fraction2)
         {
             if (fraction1 == null || fraction2 == null)
             {
@@ -184,7 +184,7 @@
             return result;
         }
 
-        public static Fraction operator *(Fraction fraction1, Fraction fraction2)
+        public static Fraction operator *(in Fraction fraction1, in Fraction fraction2)
         {
             if (fraction1 == null || fraction2 == null)
             {
@@ -204,7 +204,7 @@
             return result;
         }
 
-        public static explicit operator double(Fraction otherFraction)
+        public static explicit operator double(in Fraction otherFraction)
         {
             return Parse(otherFraction);
         }
