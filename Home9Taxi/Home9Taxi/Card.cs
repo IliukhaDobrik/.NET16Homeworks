@@ -10,6 +10,8 @@ namespace Home9Taxi
     {
         public delegate void CardHandler(string message);
         public event CardHandler? Notify;
+
+        public CardHandler? NotifyHandler { set { Notify += value; } }
         public string CardNumber { get; init; } = string.Empty;
 
         public double AmountOfMoney { get; private set; } = 0;

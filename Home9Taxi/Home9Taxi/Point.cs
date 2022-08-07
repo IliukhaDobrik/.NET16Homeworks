@@ -11,6 +11,7 @@ namespace Home9Taxi
         public delegate void PointHandler(string message);
         public event PointHandler? Notify;
 
+        public PointHandler? NotifyHandler { set { Notify += value; } }
         public double AmountOfPoints { get; private set; } = 0;
         public double AmountOfMoney { get; private set; } = 0;
 

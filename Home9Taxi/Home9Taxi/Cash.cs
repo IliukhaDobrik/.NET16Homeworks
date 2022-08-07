@@ -11,6 +11,8 @@ namespace Home9Taxi
         public delegate void CashHandler(string message);
         public event CashHandler? Notify;
 
+        public CashHandler? NotifyHandler { set { Notify += value; } }
+
         public double AmountOfMoney { get; private set; } = 0;
 
         public void AddMoney(double money)

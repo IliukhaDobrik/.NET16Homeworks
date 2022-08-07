@@ -13,8 +13,8 @@ namespace Home9Taxi
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
-            PaymentMethod.Add("Cash", new Cash());
-            PaymentMethod.Add("Point", new Point());
+            PaymentMethod.Add("Cash", new Cash() { NotifyHandler = DisplayMessage});
+            PaymentMethod.Add("Point", new Point() { NotifyHandler = DisplayMessage});
         }
 
         public string FirstName { get; set; } = string.Empty;
@@ -48,6 +48,26 @@ namespace Home9Taxi
             }
         }
 
+        public void ToUpPoint(double points)
+        {
+            try
+            {
+                if (PaymentMethod["Point"] is Point)
+                {
+                    ((Point)PaymentMethod["Point"]).AddPoints(points);
+                }
+                else
+                {
+                    throw new KeyNotFoundException();
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
+                ShowAvailablePaymentMethods();
+            }
+        }
+
         public void AddCard(string cardName, Card card)
         {
             PaymentMethod.Add(cardName, card);
@@ -69,6 +89,8 @@ namespace Home9Taxi
             }
             Console.WriteLine("==================================");
         }
+
+        private void DisplayMessage(string message) => Console.WriteLine(message);
 
     }
 }
