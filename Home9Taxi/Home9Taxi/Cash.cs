@@ -8,7 +8,7 @@ namespace Home9Taxi
 {
     internal class Cash : IPaymentMethod
     {
-        public double AmountOfMoney { get; private set; }
+        public double AmountOfMoney { get; private set; } = 0;
 
         public void AddMoney(double money)
         {
@@ -35,6 +35,15 @@ namespace Home9Taxi
             {
                 throw new Exception("Недостаточно денежных средств в кошельке!");
             }
+        }
+
+        public override string ToString()
+        {
+            string info = string.Empty;
+
+            info = $"Кошелёк из крокодильей шкуры. Средст в кошельке: {AmountOfMoney}$";
+
+            return info;
         }
     }
 }

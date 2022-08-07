@@ -14,13 +14,13 @@ namespace Home9Taxi
         public void AddPoints(double points)
         {
             AmountOfPoints += points;
-            AmountOfMoney += AmountOfPoints * 3;
+            AmountOfMoney += AmountOfPoints / 3;
         }
 
         public void AddMoney(double money)
         {
             AmountOfMoney += money;
-            AmountOfPoints += AmountOfMoney / 3;
+            AmountOfPoints += AmountOfMoney * 3;
         }
 
         public bool IsPaymentPossible(double points)
@@ -40,12 +40,21 @@ namespace Home9Taxi
             if (IsPaymentPossible(points))
             {
                 AmountOfPoints -= points;
-                AmountOfMoney -= points * 3;
+                AmountOfMoney -= points / 3;
             }
             else
             {
                 throw new Exception("Недостаточно бонусных баллов!");
             }
+        }
+
+        public override string ToString()
+        {
+            string info = string.Empty;
+
+            info = $"У вас {AmountOfPoints} бонусных баллов, это скидка на {AmountOfMoney}$";
+
+            return info;
         }
     }
 }

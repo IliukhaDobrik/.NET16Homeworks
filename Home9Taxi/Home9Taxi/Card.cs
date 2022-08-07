@@ -8,15 +8,9 @@ namespace Home9Taxi
 {
     internal class Card : IPaymentMethod
     {
-        public Card(string cardNumber, double amountOfMoney)
-        {
-            CardNumber = cardNumber;
-            AmountOfMoney = amountOfMoney;
-        }
+        public string CardNumber { get; init; } = string.Empty;
 
-        public string CardNumber { get; }
-
-        public double AmountOfMoney { get; private set; }
+        public double AmountOfMoney { get; private set; } = 0;
 
         public void AddMoney(double money)
         {
@@ -43,6 +37,15 @@ namespace Home9Taxi
             {
                 throw new Exception("Недостаточно денежных средств на карточке!");
             }
+        }
+
+        public override string ToString()
+        {
+            string info = string.Empty;
+
+            info = $"Карта номер: {CardNumber}. Средств на карточке: {AmountOfMoney}$";
+
+            return info;
         }
     }
 }
