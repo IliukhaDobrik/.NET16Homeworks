@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Home9Taxi
 {
-    internal class Vehicle
+    internal abstract class Vehicle
     {
         private double _fuelConsumption = 0;
 
@@ -22,7 +22,7 @@ namespace Home9Taxi
         public double FuelConsumption
         {
             get => _fuelConsumption;
-            set
+            private set
             {
                 if (value < 0)
                 {
