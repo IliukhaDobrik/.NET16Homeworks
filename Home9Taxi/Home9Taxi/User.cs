@@ -63,7 +63,7 @@ namespace Home9Taxi
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
+                Console.WriteLine("У вас нет бонусных баллов! Ваши средства оплаты: ".ToUpper());
                 ShowAvailablePaymentMethods();
             }
         }
@@ -71,6 +71,7 @@ namespace Home9Taxi
         public void AddCard(string cardName, Card card)
         {
             PaymentMethod.Add(cardName, card);
+            card.NotifyHandler = DisplayMessage;
         }
 
         public void ShowAvailablePaymentMethods()
