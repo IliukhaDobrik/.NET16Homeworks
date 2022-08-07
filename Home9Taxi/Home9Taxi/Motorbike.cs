@@ -9,8 +9,33 @@ namespace Home9Taxi
     internal class Motorbike : Vehicle, ITaxi
     {
         public static int MaxSpeed = 200;
-        public bool IsWithSidecar { get; set; }//с коляской ли мотоцикл
-        public int Power { get; init; } = 0;
+        private int _power = 50;
+
+        public Motorbike() : base() { }
+
+        public Motorbike(string govermentNumber, double fuelConsumption, bool isWithSidecar, int power)
+            : base(govermentNumber, fuelConsumption)
+        {
+            IsWithSidecar = isWithSidecar;
+            Power = power;
+        }
+
+        public bool IsWithSidecar { get; set; } = false; //с коляской ли мотоцикл
+        public int Power 
+        { 
+            get => _power; 
+            private set
+            {
+                if (value < 50)
+                {
+                    _power = 50;
+                }
+                else
+                {
+                    _power = value;
+                }
+            } 
+        } 
 
         public double GetPriceOfRide()
         {
