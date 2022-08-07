@@ -8,6 +8,8 @@ namespace Home9Taxi
 {
     internal class Card : IPaymentMethod
     {
+        public delegate void CardHandler(string message);
+        public event CardHandler? Notify;
         public string CardNumber { get; init; } = string.Empty;
 
         public double AmountOfMoney { get; private set; } = 0;
@@ -15,6 +17,7 @@ namespace Home9Taxi
         public void AddMoney(double money)
         {
             AmountOfMoney += money;
+            Notify?.Invoke($"На карту поступило {money}$");
         }
 
         public bool IsPaymentPossible(double cost)
@@ -29,23 +32,28 @@ namespace Home9Taxi
 
         public void MakePayment(double cost)
         {
-            if (IsPaymentPossible(cost))
+            try
             {
-                AmountOfMoney -= cost;
+                if (IsPaymentPossible(cost))
+                {
+                    AmountOfMoney -= cost;
+                    Notify?.Invoke($"С карты списано {cost}$");
+                }
+                else
+                {
+                    throw new ArithmeticException();
+                }
             }
-            else
+            catch (ArithmeticException)
             {
-                throw new Exception("Недостаточно денежных средств на карточке!");
+                Console.WriteLine($"Что ты собрался покупать? На карточке не хватает денег! " +
+                    $"Тебе не хватает {cost - AmountOfMoney}$");
             }
         }
 
         public override string ToString()
         {
-            string info = string.Empty;
-
-            info = $"Карта номер: {CardNumber}. Средств на карточке: {AmountOfMoney}$";
-
-            return info;
+            return $"Карта номер: {CardNumber}. Средств на карточке: {AmountOfMoney}$";
         }
     }
 }

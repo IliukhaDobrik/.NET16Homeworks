@@ -16,7 +16,7 @@ namespace Home9Taxi
         public void AddMoney(double money)
         {
             AmountOfMoney += money;
-            Notify?.Invoke($"У вас появилось {money}$");
+            Notify?.Invoke($"Вы нашли {money}$");
         }
 
         public bool IsPaymentPossible(double cost)
