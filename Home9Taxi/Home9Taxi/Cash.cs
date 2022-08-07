@@ -8,11 +8,15 @@ namespace Home9Taxi
 {
     internal class Cash : IPaymentMethod
     {
+        public delegate void CashHandler(string message);
+        public event CashHandler? Notify;
+
         public double AmountOfMoney { get; private set; } = 0;
 
         public void AddMoney(double money)
         {
             AmountOfMoney += money;
+            Notify?.Invoke($"У вас появилось {money}$");
         }
 
         public bool IsPaymentPossible(double cost)
@@ -27,23 +31,28 @@ namespace Home9Taxi
 
         public void MakePayment(double cost)
         {
-            if (IsPaymentPossible(cost))
+            try
             {
-                AmountOfMoney -= cost;
+                if (IsPaymentPossible(cost))
+                {
+                    AmountOfMoney -= cost;
+                    Notify?.Invoke($"Вы потратили {cost}$");
+                }
+                else
+                {
+                    throw new ArithmeticException();
+                }
             }
-            else
+            catch (ArithmeticException)
             {
-                throw new Exception("Недостаточно денежных средств в кошельке!");
+                Console.WriteLine($"Что ты собрался покупать? У тебя недостаточно денег! " +
+                    $"Тебе не хватает {cost - AmountOfMoney}$");
             }
         }
 
         public override string ToString()
         {
-            string info = string.Empty;
-
-            info = $"Кошелёк из крокодильей шкуры. Средст в кошельке: {AmountOfMoney}$";
-
-            return info;
+            return $"Налички в кошельке из крокодильей кожы: {AmountOfMoney}$";
         }
     }
 }

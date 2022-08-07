@@ -24,25 +24,27 @@ namespace Home9Taxi
 
         public void ToUpCash(double money)
         {
-            if (PaymentMethod.ContainsKey("Cash"))
+            try
             {
                 PaymentMethod["Cash"].AddMoney(money);
             }
-            else
+            catch (KeyNotFoundException)
             {
-                throw new Exception("У вас нет кошелька!");
+                Console.WriteLine("У вас нет кошелька! Ваши средства оплаты: ".ToUpper());
+                ShowAvailablePaymentMethods();
             }
         }
 
         public void ToUpCard(string cardName, double money)
         {
-            if (PaymentMethod.ContainsKey(cardName))
+            try
             {
                 PaymentMethod[cardName].AddMoney(money);
             }
-            else
+            catch (KeyNotFoundException)
             {
-                throw new Exception("У вас нет такой карточки!");
+                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
+                ShowAvailablePaymentMethods();
             }
         }
 
@@ -53,10 +55,19 @@ namespace Home9Taxi
 
         public void ShowAvailablePaymentMethods()
         {
+            Console.WriteLine("==================================");
             foreach (var paymentItem in PaymentMethod)
             {
-                Console.WriteLine(paymentItem.ToString());
+                if (paymentItem.Value is Card)
+                {
+                    Console.WriteLine($"Карточка {paymentItem.Key}. {paymentItem.Value.ToString()}");
+                }
+                else
+                {
+                    Console.WriteLine(paymentItem.Value.ToString());
+                }
             }
+            Console.WriteLine("==================================");
         }
 
     }
