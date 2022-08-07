@@ -9,6 +9,7 @@ namespace Home9Taxi
     internal abstract class Vehicle
     {
         private double _fuelConsumption = 0;
+        private int _countOfSeats = 0;
 
         public Vehicle() { }
 
@@ -16,6 +17,22 @@ namespace Home9Taxi
         {
             GovermentNumber = govermentNumber;
             FuelConsumption = fuelConsumption;
+        }
+
+        public int CountOfSeats 
+        { 
+            get => _countOfSeats;
+            private set
+            {
+                if (value < 0)
+                {
+                    _countOfSeats = 0;
+                }
+                else
+                {
+                    _countOfSeats = value;
+                }
+            }
         }
 
         public string GovermentNumber { get; init; } = string.Empty;
@@ -34,5 +51,7 @@ namespace Home9Taxi
                 }
             }
         }
+
+        public abstract int GetCountOfSeats();
     }
 }

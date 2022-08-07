@@ -13,6 +13,9 @@ namespace Home9Taxi
 
         public Motorbike() : base() { }
 
+        public Motorbike(string govermentNumber, double fuelConsumption)
+            : base(govermentNumber, fuelConsumption) { }
+
         public Motorbike(string govermentNumber, double fuelConsumption, bool isWithSidecar, int power)
             : base(govermentNumber, fuelConsumption)
         {
@@ -53,6 +56,30 @@ namespace Home9Taxi
             {
                 Console.WriteLine($"{user.FirstName} {user.LastName} совершил(ла) поездку на " +
                     $"мотоцикле, мощность {Power}, без коляски");
+            }
+        }
+
+        public override int GetCountOfSeats()
+        {
+            if (IsWithSidecar)
+            {
+                return 3;
+            }
+
+            return 2;
+        }
+
+        public override string ToString()
+        {
+            if (IsWithSidecar)
+            {
+                return $"Мотоцикл {Power} кубиков, гос. номер: {GovermentNumber}, " +
+                    $"с коляской, потребление топлива: {FuelConsumption}";
+            }
+            else
+            {
+                return $"Мотоцикл {Power} кубиков, гос. номер: {GovermentNumber}, " +
+                    $"без коляски, потребление топлива: {FuelConsumption}";
             }
         }
     }
