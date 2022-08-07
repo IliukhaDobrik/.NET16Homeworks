@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace Home9Taxi
 {
-    internal class Card : IPaymentMethod
+    internal class Cash : IPaymentMethod
     {
-        public Card(string cardNumber, double amountOfMoney)
-        {
-            CardNumber = cardNumber;
-            AmountOfMoney = amountOfMoney;
-        }
-
-        public string CardNumber { get; }
-
         public double AmountOfMoney { get; private set; }
 
         public void AddMoney(double money)
@@ -41,7 +33,7 @@ namespace Home9Taxi
             }
             else
             {
-                throw new Exception("Недостаточно денежных средств на карточке!");
+                throw new Exception("Недостаточно денежных средств в кошельке!");
             }
         }
     }
