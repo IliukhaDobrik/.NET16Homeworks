@@ -4,11 +4,11 @@
     {
         static void Main(string[] args)
         {
-            List<ITaxi> taxis = new List<ITaxi>()
+            var taxis = new List<ITaxi>
             {
-                new Car("1111", 7.6, "Красная", "Fiat"),
+                new Car("1111", 7.6, "Серая", "Fiat"),
                 new Motorbike("2222", 3.2, false, 600),
-                new Helicopter("3333", 15, false, 1200)
+                new Helicopter("3333", 16.7, false, 1200)
             };
 
             Console.ReadKey();
