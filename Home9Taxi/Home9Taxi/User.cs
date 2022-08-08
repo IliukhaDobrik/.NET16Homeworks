@@ -74,11 +74,28 @@ namespace Home9Taxi
             card.NotifyHandler = DisplayMessage;
         }
 
+        public void DeleteCard(string cardName)
+        {
+            try
+            {
+                PaymentMethod.Remove(cardName);
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
+                ShowAvailablePaymentMethods();
+            }
+        }
+
         public void ShowAvailablePaymentMethods()
         {
             Console.WriteLine("==================================");
             foreach (var paymentItem in PaymentMethod)
             {
+                if (paymentItem.Value is Point) 
+                {
+                    continue;
+                }
                 if (paymentItem.Value is Card)
                 {
                     Console.WriteLine($"{paymentItem.Key} -- {paymentItem.Value.ToString()}");
