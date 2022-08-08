@@ -76,7 +76,7 @@ namespace Home9Taxi
             else
             {
                 return $"Пассажирский вертолёт, гос. номер: {GovermentNumber}, " +
-                    $"массой {Mass}, потребление топлива: {FuelConsumption}";
+                    $"массой {Mass}, потребление топлива: {FuelConsumption}. Цена поездки: {GetPriceOfRide()}$";
             }
         }
     }

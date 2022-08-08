@@ -79,7 +79,7 @@ namespace Home9Taxi
             else
             {
                 return $"Мотоцикл {Power} кубиков, гос. номер: {GovermentNumber}, " +
-                    $"без коляски, потребление топлива: {FuelConsumption}";
+                    $"без коляски, потребление топлива: {FuelConsumption}. Цена поездки: {GetPriceOfRide()}$";
             }
         }
     }

@@ -75,7 +75,7 @@ namespace Home9Taxi
         public override string ToString()
         {
             return $"Машина {CarColor} цвета, гос. номер: {GovermentNumber}, " +
-                $"изготовитель {Company}, потребление топлива: {FuelConsumption}";
+                $"изготовитель {Company}, потребление топлива: {FuelConsumption}. Цена поездки: {GetPriceOfRide()}$";
         }
     }
 }

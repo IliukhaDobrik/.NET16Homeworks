@@ -17,6 +17,8 @@ namespace Home9Taxi
 
             int response = 0;
 
+            Console.WriteLine("Добро пожаловать в приложение BestTaxi");
+
             while (response != 12)
             {
                 PrintMenu();
@@ -63,15 +65,21 @@ namespace Home9Taxi
                             {
                                 double price = taxiPark[userChoise - 1].GetPriceOfRide();
 
-                                GetDiscount(user, ref price);
+                                double discountOfMoney = GetDiscount(user, ref price);
 
                                 if (user.PaymentMethod[nameOfPaymentMethod].IsPaymentPossible(price))
                                 {
+                                    if (user.PaymentMethod.ContainsKey("Point"))
+                                    {
+                                        ((Point)user.PaymentMethod["Point"]).AddPoints(5);
+                                    }
+
                                     user.PaymentMethod[nameOfPaymentMethod].MakePayment(price);
                                     taxiPark[userChoise - 1].MakeRide(user);
                                 }
                                 else
                                 {
+                                    user.ToUpPoint(discountOfMoney * 3);
                                     Console.WriteLine("У вас недостаточно денег!");
                                 }
                             }
@@ -148,12 +156,12 @@ namespace Home9Taxi
                             Console.WriteLine("Вы можете: " + Environment.NewLine
                                 + "Нажмите 1, если хотите поработать" + Environment.NewLine
                                 + "Нажмите 2, если хотите прогуляться" + Environment.NewLine
-                                + "Нажмите 3, если хотите покататься на такси");
+                                + "Нажмите 3, если хотите покататься на такси(Находится на стадии разработки)");
                             int userResponse = int.Parse(Console.ReadLine());
                             
                             switch (userResponse)
                             {
-                                case 1:
+                                case 1: //поработать
                                     {
                                         Console.Write("Сколько быллов вы хотите? (не больше 30) ");
                                         int points = int.Parse(Console.ReadLine());
@@ -165,8 +173,10 @@ namespace Home9Taxi
                                             for (int i = 0; i < 10; i++)
                                             {
                                                 Thread.Sleep(300);
-                                                Console.WriteLine(". ");
+                                                Console.Write(". ");
                                             }
+
+                                            Console.WriteLine();
 
                                             user.ToUpPoint(points);
                                         }
@@ -177,8 +187,10 @@ namespace Home9Taxi
                                             for (int i = 0; i < 10; i++)
                                             {
                                                 Thread.Sleep(600);
-                                                Console.WriteLine(". ");
+                                                Console.Write(". ");
                                             }
+
+                                            Console.WriteLine();
 
                                             user.ToUpPoint(points);
                                         }
@@ -189,22 +201,24 @@ namespace Home9Taxi
                                             for (int i = 0; i < 10; i++)
                                             {
                                                 Thread.Sleep(900);
-                                                Console.WriteLine(". ");
+                                                Console.Write(". ");
                                             }
+
+                                            Console.WriteLine();
 
                                             user.ToUpPoint(points);
                                         }
 
                                         break;
                                     }
-                                case 2:
+                                case 2: //прогуляться
                                     {
                                         Console.WriteLine($"{user.FirstName} решил прогуляться по улице");
                                         user.ToUpPoint(8);
 
                                         break;
                                     }
-                                //case 3:
+                                //case 3: //такси
                                 //    {
 
                                 //    }
@@ -235,11 +249,14 @@ namespace Home9Taxi
                         }
                     case 12: //выход из программы
                         {
+                            Console.WriteLine("Заходите в наше приложение ещё. Хорошего дня!");
+
                             break;
                         }
                     default:
                         {
                             Console.WriteLine("Вы ввели недоступную операцию");
+
                             break;
                         }
                 }
@@ -250,6 +267,7 @@ namespace Home9Taxi
 
         static void PrintMenu()
         {
+            Console.WriteLine("****************************************");
             Console.WriteLine("Нажмите 1, если  хотите добавить карту" + Environment.NewLine
                 + "Нажмите 2, если хотите пополнить карту" + Environment.NewLine
                 + "Нажмите 3, если хотите совершить поездку" + Environment.NewLine 
@@ -262,6 +280,7 @@ namespace Home9Taxi
                 + "Нажмите 10, если хотите погулять" + Environment.NewLine
                 + "Нажмите 11, если хотите узнать, сколько у васс баллов" + Environment.NewLine
                 + "Нажмите 12, если хотите выйти");
+            Console.WriteLine("****************************************");
         }
 
         static void PrintFreeTaxi(in List<ITaxi> taxiPark)
@@ -275,7 +294,7 @@ namespace Home9Taxi
             }
         }
 
-        static void GetDiscount(in User user, ref double price)
+        static double GetDiscount(in User user, ref double price)
         {
             double discount = 0;
             if (user.PaymentMethod.ContainsKey("Point"))
@@ -285,7 +304,7 @@ namespace Home9Taxi
 
             if (discount != 0)
             {
-                if (price > discount)
+                if (price >= discount)
                 {
                     price -= discount;
                     ((Point)user.PaymentMethod["Point"]).MakePayment(discount);
@@ -296,6 +315,8 @@ namespace Home9Taxi
                     ((Point)user.PaymentMethod["Point"]).MakePayment(price);
                 }
             }
+
+            return discount;
         }
     }
 }
