@@ -81,11 +81,11 @@ namespace Home9Taxi
             {
                 if (paymentItem.Value is Card)
                 {
-                    Console.WriteLine($"Карточка {paymentItem.Key}. {paymentItem.Value.ToString()}");
+                    Console.WriteLine($"{paymentItem.Key} -- {paymentItem.Value.ToString()}");
                 }
                 else
                 {
-                    Console.WriteLine(paymentItem.Value.ToString());
+                    Console.WriteLine(paymentItem.Key + " -- " + paymentItem.Value.ToString());
                 }
             }
             Console.WriteLine("==================================");
