@@ -15,18 +15,19 @@ namespace Home9Taxi
 
             User user = new User("Илья", "Добринский", "+375298732839");
 
-            int response = 0;
+            //int response = 0;
+            UserAction response = UserAction.Wait;
 
             Console.WriteLine("Добро пожаловать в приложение BestTaxi");
 
-            while (response != 12)
+            while (response != UserAction.Exit)
             {
                 PrintMenu();
-                response = int.Parse(Console.ReadLine());
+                response = Enum.Parse<UserAction>(Console.ReadLine());
 
                 switch (response)
                 {
-                    case 1: //добавить карту
+                    case UserAction.AddCard: 
                         {
                             Console.Write("Введите название карты: ");
                             string cardName = Console.ReadLine();
@@ -38,7 +39,7 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 2: // пополнить карту
+                    case UserAction.ToUpCard:
                         {
                             Console.Write("Введите название карты: ");
                             string cardName = Console.ReadLine();
@@ -50,7 +51,7 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 3: //совершить поездку
+                    case UserAction.MakeRide:
                         {
                             PrintFreeTaxi(taxiPark);
 
@@ -91,13 +92,13 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 4: // вывести список свободных машин
+                    case UserAction.ShowFreeTaxi:
                         {
                             PrintFreeTaxi(taxiPark);
 
                             break;
                         }
-                    case 5: // пополнить кошелек
+                    case UserAction.ToUpCash:
                         {
                             Console.Write("Введите сумму найденных денег: ");
                             double amountOfMoney = double.Parse(Console.ReadLine());
@@ -106,13 +107,13 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 6: // посмотреть средсва оплаты
+                    case UserAction.ShowAvailablePaymentMethods: 
                         {
                             user.ShowAvailablePaymentMethods();
 
                             break;
                         }
-                    case 7: //потратить деньги
+                    case UserAction.MakePayment:
                         {
                             Console.Write("Сколько стоит эта фигня? ");
                             double cost = double.Parse(Console.ReadLine());
@@ -142,7 +143,7 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 8: //выкинуть карточку
+                    case UserAction.RemoveCard:
                         {
                             Console.Write("Введите название карты: ");
                             string removeCard = Console.ReadLine();
@@ -151,7 +152,7 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 9: //заработать баллов
+                    case UserAction.ToUpPoint:
                         {
                             Console.WriteLine("Вы можете: " + Environment.NewLine
                                 + "Нажмите 1, если хотите поработать" + Environment.NewLine
@@ -220,7 +221,7 @@ namespace Home9Taxi
                                     }
                                 //case 3: //такси
                                 //    {
-
+                                //        goto case UserAction.MakeRide;
                                 //    }
                                 default:
                                     {
@@ -230,14 +231,14 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 10: //погулять
+                    case UserAction.Walk:
                         {
                             Console.WriteLine($"{user.FirstName} решил прогуляться по улице");
                             user.ToUpPoint(8);
 
                             break;
                         }
-                    case 11:
+                    case UserAction.ShowAmountOfPoint:
                         {
                             if (user.PaymentMethod.ContainsKey("Point"))
                             {
@@ -247,7 +248,7 @@ namespace Home9Taxi
 
                             break;
                         }
-                    case 12: //выход из программы
+                    case UserAction.Exit:
                         {
                             Console.WriteLine("Заходите в наше приложение ещё. Хорошего дня!");
 
