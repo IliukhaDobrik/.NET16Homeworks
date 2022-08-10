@@ -61,12 +61,7 @@ namespace Home9Taxi
 
         public override int GetCountOfSeats()
         {
-            if (IsWithSidecar)
-            {
-                return 3;
-            }
-
-            return 2;
+            return IsWithSidecar ? 3 : 2;
         }
 
         public override string ToString()

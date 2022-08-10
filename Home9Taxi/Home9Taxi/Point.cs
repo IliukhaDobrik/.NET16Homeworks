@@ -31,14 +31,7 @@ namespace Home9Taxi
 
         public bool IsPaymentPossible(double money)
         {
-            if (AmountOfPoints < money * 3)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return AmountOfPoints < money * 3;
         }
 
         public void MakePayment(double money)

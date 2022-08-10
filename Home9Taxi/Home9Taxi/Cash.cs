@@ -23,12 +23,7 @@ namespace Home9Taxi
 
         public bool IsPaymentPossible(double cost)
         {
-            if (cost > AmountOfMoney)
-            {
-                return false;
-            }
-
-            return true;
+            return cost > AmountOfMoney;
         }
 
         public void MakePayment(double cost)

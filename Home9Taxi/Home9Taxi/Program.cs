@@ -15,7 +15,6 @@ namespace Home9Taxi
 
             User user = new User("Илья", "Добринский", "+375298732839");
 
-            //int response = 0;
             UserAction response = UserAction.Wait;
 
             Console.WriteLine("Добро пожаловать в приложение BestTaxi");
@@ -53,42 +52,7 @@ namespace Home9Taxi
                         }
                     case UserAction.MakeRide:
                         {
-                            PrintFreeTaxi(taxiPark);
-
-                            Console.Write("Какой транспорт вы выбрали? ");
-                            int userChoise = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine("Выберете способ оплаты: ");
-                            user.ShowAvailablePaymentMethods();
-                            string nameOfPaymentMethod = Console.ReadLine();
-
-                            try
-                            {
-                                double price = taxiPark[userChoise - 1].GetPriceOfRide();
-
-                                double discountOfMoney = GetDiscount(user, ref price);
-
-                                if (user.PaymentMethod[nameOfPaymentMethod].IsPaymentPossible(price))
-                                {
-                                    if (user.PaymentMethod.ContainsKey("Point"))
-                                    {
-                                        ((Point)user.PaymentMethod["Point"]).AddPoints(5);
-                                    }
-
-                                    user.PaymentMethod[nameOfPaymentMethod].MakePayment(price);
-                                    taxiPark[userChoise - 1].MakeRide(user);
-                                }
-                                else
-                                {
-                                    user.ToUpPoint(discountOfMoney * 3);
-                                    Console.WriteLine("У вас недостаточно денег!");
-                                }
-                            }
-                            catch (KeyNotFoundException)
-                            {
-                                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
-                                user.ShowAvailablePaymentMethods();
-                            }
+                            UserMakeRide(user, taxiPark);
 
                             break;
                         }
@@ -169,43 +133,19 @@ namespace Home9Taxi
 
                                         if (points >= 0 && points < 10)
                                         {
-                                            Console.WriteLine("Работы на каторгах");
-
-                                            for (int i = 0; i < 10; i++)
-                                            {
-                                                Thread.Sleep(300);
-                                                Console.Write(". ");
-                                            }
-
-                                            Console.WriteLine();
+                                            Work(300);
 
                                             user.ToUpPoint(points);
                                         }
                                         else if (points >= 10 && points < 20)
                                         {
-                                            Console.WriteLine("Работы на каторгах");
-
-                                            for (int i = 0; i < 10; i++)
-                                            {
-                                                Thread.Sleep(600);
-                                                Console.Write(". ");
-                                            }
-
-                                            Console.WriteLine();
+                                            Work(600);
 
                                             user.ToUpPoint(points);
                                         }
                                         else if (points >= 20 && points <= 30)
                                         {
-                                            Console.WriteLine("Работы на каторгах");
-
-                                            for (int i = 0; i < 10; i++)
-                                            {
-                                                Thread.Sleep(900);
-                                                Console.Write(". ");
-                                            }
-
-                                            Console.WriteLine();
+                                            Work(900);
 
                                             user.ToUpPoint(points);
                                         }
@@ -214,15 +154,16 @@ namespace Home9Taxi
                                     }
                                 case 2: //прогуляться
                                     {
-                                        Console.WriteLine($"{user.FirstName} решил прогуляться по улице");
-                                        user.ToUpPoint(8);
+                                        Walk(user);
 
                                         break;
                                     }
-                                //case 3: //такси
-                                //    {
-                                //        goto case UserAction.MakeRide;
-                                //    }
+                                case 3: //такси
+                                    {
+                                        UserMakeRide(user, taxiPark);
+
+                                        break;
+                                    }
                                 default:
                                     {
                                         break;
@@ -233,8 +174,7 @@ namespace Home9Taxi
                         }
                     case UserAction.Walk:
                         {
-                            Console.WriteLine($"{user.FirstName} решил прогуляться по улице");
-                            user.ToUpPoint(8);
+                            Walk(user);
 
                             break;
                         }
@@ -319,5 +259,66 @@ namespace Home9Taxi
 
             return discount;
         }
+
+        static void UserMakeRide(in User user, in List<ITaxi> taxiPark)
+        {
+            PrintFreeTaxi(taxiPark);
+
+            Console.Write("Какой транспорт вы выбрали? ");
+            int userChoise = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Выберете способ оплаты: ");
+            user.ShowAvailablePaymentMethods();
+            string nameOfPaymentMethod = Console.ReadLine();
+
+            try
+            {
+                double price = taxiPark[userChoise - 1].GetPriceOfRide();
+
+                double discountOfMoney = GetDiscount(user, ref price);
+
+                if (user.PaymentMethod[nameOfPaymentMethod].IsPaymentPossible(price))
+                {
+                    if (user.PaymentMethod.ContainsKey("Point"))
+                    {
+                        ((Point)user.PaymentMethod["Point"]).AddPoints(5);
+                    }
+
+                    user.PaymentMethod[nameOfPaymentMethod].MakePayment(price);
+                    taxiPark[userChoise - 1].MakeRide(user);
+                }
+                else
+                {
+                    user.ToUpPoint(discountOfMoney * 3);
+                    Console.WriteLine("У вас недостаточно денег!");
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("У вас нет такой карты! Ваши средства оплаты: ".ToUpper());
+                user.ShowAvailablePaymentMethods();
+            }
+        }
+
+        static void Work(int milisecond)
+        {
+            Console.WriteLine("Работы на каторгах");
+
+            for (int i = 0; i < 10; i++)
+            {
+                Thread.Sleep(milisecond);
+                Console.Write(". ");
+            }
+
+            Console.WriteLine();
+        }
+
+        static void Walk(in User user)
+        {
+            Console.WriteLine($"{user.FirstName} решил прогуляться по улице");
+            user.ToUpPoint(3);
+        }
     }
+
+   
 }

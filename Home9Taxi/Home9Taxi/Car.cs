@@ -41,29 +41,19 @@ namespace Home9Taxi
         {
             try
             {
-                if (Company is "Fiat")
-                    return 5;
-                if (Company is "BMW")
-                    return 4;
-                if (Company is "Mercedes")
-                    return 5;
-                if (Company is "Ferrari")
-                    return 2;
-                throw new Exception();
-
-                //switch (Company)
-                //{
-                //    case "Fiat":
-                //        return 5;
-                //    case "BMW":
-                //        return 4;
-                //    case "Mercedes":
-                //        return 5;
-                //    case "Ferrari":
-                //        return 2;
-                //    default:
-                //        throw new Exception();
-                //}
+                switch (Company)
+                {
+                    case "Fiat":
+                        return 5;
+                    case "BMW":
+                        return 4;
+                    case "Mercedes":
+                        return 5;
+                    case "Ferrari":
+                        return 2;
+                    default:
+                        throw new Exception();
+                }
             }
             catch (Exception)
             {
