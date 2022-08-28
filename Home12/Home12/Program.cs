@@ -22,7 +22,7 @@ namespace Home12
 
             Type type = employee.GetType();
 
-            foreach (PropertyInfo propertyInfo in type.GetProperties())
+            foreach (var propertyInfo in type.GetProperties())
             {
                 var prop = type.GetProperty(propertyInfo.Name);
                 Console.WriteLine($"{propertyInfo.Name} -- {prop?.GetValue(employee)}");
