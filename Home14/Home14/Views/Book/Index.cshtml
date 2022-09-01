@@ -1,0 +1,11 @@
+﻿@model BookViewModel;
+
+@{
+    ViewData["Title"] = "Book Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать дорогие читатели</h1>
+    <p>Книгу под названием @Model.Title написал @Model.Author, чтобы ее прочитать вам понадобиться
+        достаточно времени, ведь в ней @Model.CountOfPages страниц</p>
+</div>
