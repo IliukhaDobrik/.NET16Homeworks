@@ -1,5 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Fish>;
+
 @{
+    ViewData["Title"] = "ViewWithSeparateLayout";
+
+    Layout = "_NewLayout";
 }
+
+<ul>
+    @foreach (var fish in Model)
+    {
+        @: <li>@($"Name: {fish.Name}, Weight: {fish.Weight}, Speed: {fish.Speed}")</li>
+    }
+</ul>
