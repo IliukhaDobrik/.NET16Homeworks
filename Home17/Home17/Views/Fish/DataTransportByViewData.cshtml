@@ -1,0 +1,12 @@
+﻿@{
+    var fishList = ViewData["Fish"] as List<Fish>;
+
+    ViewData["Title"] = "DataTransportByViewData";
+}
+
+<ul>
+    @foreach(var fish in fishList)
+    {
+        @: <li>@($"Name: {fish.Name}, Weight: {fish.Weight}, Spped: {fish.Speed}")</li>
+    }
+</ul>

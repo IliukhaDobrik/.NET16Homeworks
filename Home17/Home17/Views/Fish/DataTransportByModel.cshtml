@@ -1,0 +1,12 @@
+﻿@model List<Fish>;
+
+@{
+    ViewData["Title"] = "DataTransportByModel";
+}
+
+<ul>
+    @foreach (var fish in Model)
+    {
+        @: <li>@($"Name: {fish.Name}, Weight: {fish.Weight}, Speed: {fish.Speed}")</li>
+    }
+</ul>

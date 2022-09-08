@@ -1,0 +1,12 @@
+﻿@{
+    var fishList = ViewBag.Fish as List<Fish>;
+
+    ViewBag.Title = "DataTransportByViewBag";
+}
+
+<ul>
+    @foreach(var fish in fishList)
+    {
+        @: <li>@($"Name: {fish.Name}, Weight: {fish.Weight}, Spped: {fish.Speed}")</li>
+    }
+</ul>
