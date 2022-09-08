@@ -1,6 +1,9 @@
 ﻿@model List<Fish>;
 
 @{
+    Model[0].Name = ViewData["Name"] as string;
+    Model[0].Weight = ViewBag.Weight;
+
     ViewData["Title"] = "DataTransportByModel";
 }
 

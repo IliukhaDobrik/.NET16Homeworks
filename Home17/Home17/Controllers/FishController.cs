@@ -33,6 +33,9 @@ namespace Home17.Controllers
 
         public IActionResult DataTransportByModel()
         {
+            ViewData["Name"] = "Карп";
+            ViewBag.Weight = 10;
+
             return View(fishList);
         }
 
